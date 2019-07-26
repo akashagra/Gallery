@@ -6,34 +6,36 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:src="@drawable/image_one"
+    <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/peek_first"
         android:layout_width="200dp"
         android:layout_height="200dp"
+        app:roundAsCircle="true"
+        android:transitionName="gallery_transition"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <ImageView
-        android:src="@drawable/image_two"
+    <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/peek_second"
         android:layout_width="200dp"
         android:layout_height="200dp"
+        app:roundAsCircle="true"
         app:layout_constraintStart_toEndOf="@id/peek_first"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <ImageView
-        android:src="@drawable/image_three"
+    <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/peek_third"
         android:layout_width="200dp"
         android:layout_height="200dp"
+        app:roundAsCircle="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/peek_first"/>
 
-    <ImageView
+    <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/peek_fourth"
         android:layout_width="200dp"
         android:layout_height="200dp"
+        app:roundAsCircle="true"
         app:layout_constraintStart_toEndOf="@id/peek_third"
         app:layout_constraintTop_toBottomOf="@id/peek_first"/>
 

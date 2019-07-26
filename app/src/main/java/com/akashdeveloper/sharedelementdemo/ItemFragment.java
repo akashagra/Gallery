@@ -8,6 +8,9 @@ import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.SharedElementCallback;
+import android.transition.ChangeBounds;
+import android.transition.Explode;
+import android.transition.Fade;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Display;
@@ -32,10 +35,14 @@ public class ItemFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        ImageView firstPeek = view.findViewById(R.id.peek_first);
-        ImageView secondPeek = view.findViewById(R.id.peek_second);
-        ImageView thirdPeek = view.findViewById(R.id.peek_third);
-        ImageView fourthPeek = view.findViewById(R.id.peek_fourth);
+        SimpleDraweeView firstPeek = view.findViewById(R.id.peek_first);
+        SimpleDraweeView secondPeek = view.findViewById(R.id.peek_second);
+        SimpleDraweeView thirdPeek = view.findViewById(R.id.peek_third);
+        SimpleDraweeView fourthPeek = view.findViewById(R.id.peek_fourth);
+        firstPeek.setImageURI("https://www.themealdb.com/images/category/dessert.png");
+        secondPeek.setImageURI("https://www.themealdb.com/images/category/pasta.png");
+        thirdPeek.setImageURI("https://www.themealdb.com/images/category/pasta.png");
+        fourthPeek.setImageURI("https://www.themealdb.com/images/category/starter.png");
 //        WindowManager wm = (WindowManager) getContext()
 //                .getSystemService(Context.WINDOW_SERVICE);
 //        Display display = wm.getDefaultDisplay();
@@ -79,7 +86,6 @@ public class ItemFragment extends Fragment {
                 openFullGallery(v, 2);
             }
         });
-
         fourthPeek.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,12 +94,16 @@ public class ItemFragment extends Fragment {
         });
     }
     private void openFullGallery(final View v, int i) {
+        GalleryFragment galleryFragment = new GalleryFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("key", i);
+        galleryFragment.setArguments(bundle);
+        galleryFragment.setSharedElementReturnTransition(new ChangeBounds());
                  getFragmentManager()
-                .beginTransaction()
-                .setReorderingAllowed(true) // setAllowOptimization before 26.1.0
-//                .addSharedElement(v, v.getTransitionName())
+                .beginTransaction()// setAllowOptimization before 26.1.0
+                .addSharedElement(v, "gallery_transition").setReorderingAllowed(true)
                 .replace(R.id.container,
-                        new GalleryFragment())
+                        galleryFragment)
                 .addToBackStack(null)
                 .commit();
 
